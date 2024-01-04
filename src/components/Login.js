@@ -8,6 +8,9 @@ import 'react-toastify/dist/ReactToastify.css';
 const Login = () => {
   const [username, setUsername] = useState(localStorage.getItem('username') || '');
   const [password, setPassword] = useState(localStorage.getItem('password') || '');
+  const [isAuth, setIsAuth] = useState(false);
+  // const isLoggedIn = localStorage.getItem('token');
+  // if(isLoggedIn) setIsAuth(true);
   const [showPassword, setShowPassword] = React.useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -18,7 +21,6 @@ const Login = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Initialize input fields with data from local storage on component mount
     const storedUsername = localStorage.getItem('username');
     const storedPassword = localStorage.getItem('password');
     if (storedUsername) setUsername(storedUsername);
@@ -46,12 +48,13 @@ const Login = () => {
         console.log(data2.token);
         localStorage.setItem('token', data2.token);
         navigate('/');
+        setIsAuth(true);
       } else {
         toast.error("Incorrect Credentials", { position: toast.POSITION.BOTTOM_RIGHT });
         localStorage.removeItem('token');
+        setIsAuth(false);
       }
     } catch (err) {
-      // Handle error
       console.error(err);
     }
   };
@@ -115,6 +118,7 @@ const Login = () => {
             >
               Sign In
             </Button>
+            {isAuth ? <p>Login Successfull ! Go To <Link style={{color:"blue", textDecoration:"none"}} to={'/'}>HomePage</Link></p>  : ""}
           </Box>
         </Box>
       </Container>
