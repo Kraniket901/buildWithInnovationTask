@@ -1,16 +1,14 @@
-import { Copyright, Label, Visibility, VisibilityOff } from '@mui/icons-material';
-import { Avatar, Box, Button, Checkbox, Container, CssBaseline, FormControl, FormControlLabel, Grid, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField, Typography } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { Box, Button, Container, CssBaseline, FormControl, IconButton, InputAdornment, OutlinedInput, TextField, Typography } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
-  const [username, setUsername] = useState(localStorage.getItem('username') || '');
-  const [password, setPassword] = useState(localStorage.getItem('password') || '');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [isAuth, setIsAuth] = useState(false);
-  // const isLoggedIn = localStorage.getItem('token');
-  // if(isLoggedIn) setIsAuth(true);
   const [showPassword, setShowPassword] = React.useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -20,17 +18,8 @@ const Login = () => {
   };
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const storedUsername = localStorage.getItem('username');
-    const storedPassword = localStorage.getItem('password');
-    if (storedUsername) setUsername(storedUsername);
-    if (storedPassword) setPassword(storedPassword);
-  }, []);
-
   const handleInputChange = (e, setFunction) => {
-    const value = e.target.value;
-    setFunction(value);
-    localStorage.setItem(e.target.name, value);
+    setFunction(e.target.value);
   };
 
   const handleSubmit = async () => {

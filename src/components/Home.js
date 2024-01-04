@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useCart } from './CartContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
@@ -36,6 +36,7 @@ const Home = () => {
   const [priceFilter, setPriceFilter] = useState({ min: "", max: "" });
 
   const { addToCart, removeFromCart, totalItems } = useCart();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getAllProducts = async () => {
@@ -50,6 +51,10 @@ const Home = () => {
     const data = await fetch(`https://dummyjson.com/products/search?q=${searchedData}`);
     const data2 = await data.json();
     if (data2) setFilteredData(data2.products);
+  }
+  const handleLogout = async () => {
+    localStorage.removeItem('token');
+    navigate('/login')
   }
 
   useEffect(() => {
@@ -103,6 +108,7 @@ const Home = () => {
             <ShoppingCartIcon style={{ fontSize: "30px" }} />
           </StyledBadge>
         </IconButton></Link>
+        <Button variant='contained' onClick={handleLogout} color='error'>Logout</Button>
       </div>
       <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
         {
