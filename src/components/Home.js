@@ -78,6 +78,12 @@ const Home = () => {
             placeholder="Search Your Product"
             inputProps={{ 'aria-label': 'search google maps' }}
             onChange={(e) => setSearchedData(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault();
+                handleClick();
+              }
+            }}
           />
           <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
           <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
