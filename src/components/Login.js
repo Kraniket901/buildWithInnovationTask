@@ -36,7 +36,7 @@ const Login = () => {
       if (data2.token) {
         console.log(data2.token);
         localStorage.setItem('token', data2.token);
-        navigate('/');
+        window.location.href = '/';
         setIsAuth(true);
       } else {
         toast.error("Incorrect Credentials", { position: toast.POSITION.BOTTOM_RIGHT });
